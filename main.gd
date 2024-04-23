@@ -1,7 +1,9 @@
 extends Node2D
 
 @onready var console = $Console
+#@onready var combatManager = $CombatManager
 @onready var gm = GameState.new(console)
+#@onready var cm = CombatManager.new(console)
 
 func _ready():
 	#Globals.print = console_print

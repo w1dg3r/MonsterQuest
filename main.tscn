@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://frsegamen2i3"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_bjkok"]
-[ext_resource type="Script" path="res://dice.gd" id="2_o3oqc"]
+[ext_resource type="Script" path="res://Helpers/dice.gd" id="2_o3oqc"]
 [ext_resource type="PackedScene" uid="uid://b27g5h6p3myt0" path="res://console.tscn" id="3_3satt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rv83t"]
@@ -12,7 +12,7 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
 
-[node name="Base" type="Node2D"]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_bjkok")
 
 [node name="Dice" type="Node" parent="."]
@@ -26,3 +26,7 @@ offset_top = 115.0
 offset_right = 941.0
 offset_bottom = 519.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rv83t")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="CombatManage" type="Node" parent="."]

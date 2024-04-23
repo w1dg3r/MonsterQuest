@@ -56,3 +56,19 @@ func roll() -> int:
 		rolls.append(roll)
 		total += roll
 	return total+modifier
+
+
+static func rollWithDice(diceAmount, diceSides, modifier):
+	var roll = 0
+	var total = 0
+	
+	for dice in diceAmount:
+		roll = randi_range(1,diceSides)
+		total += roll
+	
+	total += modifier
+	return total
+
+
+
+
