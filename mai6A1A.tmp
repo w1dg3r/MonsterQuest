@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://frsegamen2i3"]
 
-[ext_resource type="Script" path="res://Managers/gameManager.gd" id="1_bjkok"]
+[ext_resource type="Script" path="res://main.gd" id="1_bjkok"]
 [ext_resource type="Script" path="res://Helpers/dice.gd" id="2_o3oqc"]
 [ext_resource type="PackedScene" uid="uid://b27g5h6p3myt0" path="res://console.tscn" id="3_3satt"]
 [ext_resource type="Script" path="res://Managers/combatManager.gd" id="4_mqwab"]
@@ -28,5 +28,7 @@ offset_right = 941.0
 offset_bottom = 519.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rv83t")
 
-[node name="Combat" type="Node" parent="."]
+[node name="Node" type="Node" parent="."]
+
+[node name="CombatManager" type="Node" parent="."]
 script = ExtResource("4_mqwab")
