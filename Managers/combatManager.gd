@@ -1,23 +1,24 @@
 extends Node
 class_name CombatManager
 
-var	consoleRef: Node
-func _init(consoleNode):
-	consoleRef = consoleNode
+var console
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-func SimulateBattle(names, monster: String, monsterHP: int, savingThrowDC: int):
-	var fixedNames = stringHelper.joinWithAnd(names)
-	consoleRef.printLine("A party of warriors "+ str(fixedNames) +" decends into the dungeon")
+	$"..".connect("console_ready", _onConsoleReady)
 	
-	consoleRef.printLine("A "+monster + " with "+ str(monsterHP) + " HP appears")
+func _onConsoleReady(ref):
+	console = ref
+	console.printLine("CombatManager ready")
+	
+func Combat(monster: Monster):
+	SimulateBattle($"..".names, monster.displayName, monster.hitPoints, monster.savingThrowDC)
+
+func SimulateBattle(names, monster: String, monsterHP: int, savingThrowDC: int) -> void:
+	var fixedNames = stringHelper.joinWithAnd(names)
+	console.printLine("A party of warriors "+ str(fixedNames) +" decends into the dungeon")
+	
+	console.printLine("A "+monster + " with "+ str(monsterHP) + " HP appears")
 	
 	while names.size() > 0:
 		
@@ -26,10 +27,10 @@ func SimulateBattle(names, monster: String, monsterHP: int, savingThrowDC: int):
 			monsterHP -= damage
 		
 			if monsterHP > 0:
-				consoleRef.printLine(name + " hits the " + monster + " for " + str(damage) + " damage. " + monster + " has " + str(monsterHP) + " HP left.")
+				console.printLine(name + " hits the " + monster + " for " + str(damage) + " damage. " + monster + " has " + str(monsterHP) + " HP left.")
 		
 			elif monsterHP < 0:
-				consoleRef.printLine(name + " hits the " + monster + " for " + str(damage) + " damage which kills it!!")
+				console.printLine(name + " hits the " + monster + " for " + str(damage) + " damage which kills it!!")
 				break
 
 		if monsterHP < 0:
@@ -38,24 +39,24 @@ func SimulateBattle(names, monster: String, monsterHP: int, savingThrowDC: int):
 		var targetIndex = Dice.rollWithDice(1,names.size(),0)
 		var targetName = names[targetIndex-1]
 		
-		consoleRef.printLine("The " + monster + " attacks " + targetName + "!")
+		console.printLine("The " + monster + " attacks " + targetName + "!")
 
 		var constitution = 5
 		var saveRoll = Dice.rollWithDice(1,20,0)
 		
 		if constitution + saveRoll > savingThrowDC:
-			consoleRef.printLine(targetName + " rolls a " + str(saveRoll) + " and is saved from the attack.")
+			console.printLine(targetName + " rolls a " + str(saveRoll) + " and is saved from the attack.")
 			
 		else:
-			consoleRef.printLine(targetName + " rolls a " + str(saveRoll) + " and died a painful death.")
+			console.printLine(targetName + " rolls a " + str(saveRoll) + " and died a painful death.")
 			names.erase(targetName)
 
 	if monsterHP > 0:
-		consoleRef.printLine("Your party has died and the " + monster + " will ravish the lands!")
+		console.printLine("Your party has died and the " + monster + " will ravish the lands!")
 		
 	else:
 		var remainingNames = stringHelper.joinWithAnd(names)
-		consoleRef.printLine("The " + monster + " collapses and " + remainingNames + " move on!")	
+		console.printLine("The " + monster + " collapses and " + remainingNames + " move on!")	
 	
 
 

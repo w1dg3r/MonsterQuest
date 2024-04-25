@@ -1,16 +1,19 @@
 extends Node2D
 
 @onready var console = $Console
-#onready var gs = GameState.new()
-@onready var cm = CombatManager.new(console)
+@onready var combat: CombatManager = $Combat as CombatManager
+
+signal console_ready(ref)
+
+var names = ["Ken", "Barby", "Roland", "Melissa"]
 
 func _ready():
-	var names = ["Ken", "Barby", "Roland", "Melissa"]
-	console.clear()
-	#	console.printLine(str($Dice.roll()))
-	#	console.printLine(str($Dice.rolls))
-	#gs._start()
-	cm.SimulateBattle(names,"Troll",50,10)
+	console_ready.emit(console)
+	Start()
 
-func _process(delta):
-	pass
+func Start():
+	console.clear()
+	console.printLine("Welcome to RPG simulation!")
+	var troll:Monster = Monster.new("Trolly", Dice.rollParse("4d20+103"), 10)
+	#combat.SimulateBattle(names, "Troll", 50, 10)
+	combat.Combat(troll)

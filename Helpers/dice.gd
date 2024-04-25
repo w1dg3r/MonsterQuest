@@ -57,6 +57,10 @@ func roll() -> int:
 		total += roll
 	return total+modifier
 
+static func rollParse(ds: String) -> int:
+	var d = Dice.new(ds)
+	d.parse_dice_string(ds)
+	return d.roll()
 
 static func rollWithDice(diceAmount, diceSides, modifier):
 	var roll = 0
